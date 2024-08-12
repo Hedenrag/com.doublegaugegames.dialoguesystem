@@ -1,0 +1,6 @@
+{
+    "name":"com.doublegaugegames.dialoguesystem",
+    "version":"1.1.4",
+    "description":"Scriptable object based dialogue system made to easly integrate with any save system and visualy create branching dialogues",
+    "displayName":"Dialogue System"
+}

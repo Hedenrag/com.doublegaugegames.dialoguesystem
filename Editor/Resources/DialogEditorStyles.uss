@@ -1,0 +1,28 @@
+#VisualPortContainer {
+	flex-direction: row;
+	align-items: stretch;
+	border-radius: 3px;
+}
+
+#NameField {
+	flex-grow: 1;
+	width:40px;
+}
+#OptionText{
+	flex-grow: 1;
+	width: 60px;
+}
+#DeleteButton{
+	flex-grow: 0;
+	height: 16px;
+	width: 16px;
+}
+
+#CharacterSideButton{
+	flex-grow: 1;
+	width:30px
+}
+#CaracterChooseField{
+	flex-grow: 1;
+	width: 60px;
+}

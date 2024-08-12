@@ -2,11 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class EntryNode : BaseDialogueNode
+namespace DGG.DialogueSystem
 {
-    public EntryNode()
+
+
+    [System.Serializable]
+    public class EntryNode : BaseDialogueNode
     {
-        nextNodeGUID = new string[1];
+        public EntryNode()
+        {
+            nextNodeGUID = new string[1];
+        }
     }
+
 }

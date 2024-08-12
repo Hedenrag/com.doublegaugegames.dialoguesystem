@@ -7,6 +7,9 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System.Linq;
 
+namespace DGG.DialogueSystem
+{
+
 public class DialogueEditorWindow : EditorWindow
 {
     static bool creatingWindow = false;
@@ -93,4 +96,6 @@ public class DialogueEditorWindow : EditorWindow
             Close();
         }
     }
+}
+
 }

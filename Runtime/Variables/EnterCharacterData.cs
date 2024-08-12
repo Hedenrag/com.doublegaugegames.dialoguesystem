@@ -4,34 +4,40 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-[System.Serializable]
-public class EnterCharacterData : BaseDialogueNode
+namespace DGG.DialogueSystem
 {
-    [SerializeField] public string SpeakerCharacterGUID;
-    [SerializeField] public bool EnterCharacter;
-    [SerializeField] public bool CharacterLeft;
-    public CharacterDefinitionsScriptableObject CharacterDefinition
+
+
+    [System.Serializable]
+    public class EnterCharacterData : BaseDialogueNode
     {
-        get
+        [SerializeField] public string SpeakerCharacterGUID;
+        [SerializeField] public bool EnterCharacter;
+        [SerializeField] public bool CharacterLeft;
+        public CharacterDefinitionsScriptableObject CharacterDefinition
         {
-#if UNITY_EDITOR
-            if (characterDefinition == null)
+            get
             {
-                characterDefinition = UnityEditor.AssetDatabase.LoadAssetAtPath<CharacterDefinitionsScriptableObject>(UnityEditor.AssetDatabase.GUIDToAssetPath(UnityEditor.AssetDatabase.FindAssets("t:" + typeof(CharacterDefinitionsScriptableObject).Name).First()));
-            }
+#if UNITY_EDITOR
+                if (characterDefinition == null)
+                {
+                    characterDefinition = UnityEditor.AssetDatabase.LoadAssetAtPath<CharacterDefinitionsScriptableObject>(UnityEditor.AssetDatabase.GUIDToAssetPath(UnityEditor.AssetDatabase.FindAssets("t:" + typeof(CharacterDefinitionsScriptableObject).Name).First()));
+                }
 #endif
-            return characterDefinition;
+                return characterDefinition;
+            }
+            set
+            {
+                characterDefinition = value;
+            }
         }
-        set
+        [SerializeField] private CharacterDefinitionsScriptableObject characterDefinition;
+
+
+        public EnterCharacterData()
         {
-            characterDefinition = value;
+            nextNodeGUID = new string[1];
         }
     }
-    [SerializeField] private CharacterDefinitionsScriptableObject characterDefinition;
 
-
-    public EnterCharacterData()
-    {
-        nextNodeGUID = new string[1];
-    }
 }

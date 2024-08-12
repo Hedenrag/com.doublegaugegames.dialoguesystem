@@ -2,14 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class DeclareVariable : BaseDialogueNode
+namespace DGG.DialogueSystem
 {
-    [SerializeField] public string VariableName;
-    [SerializeField] public bool Set;
 
-    public DeclareVariable()
+
+    [System.Serializable]
+    public class DeclareVariable : BaseDialogueNode
     {
-        nextNodeGUID = new string[1];
+        [SerializeField] public string VariableName;
+        [SerializeField] public bool Set;
+
+        public DeclareVariable()
+        {
+            nextNodeGUID = new string[1];
+        }
     }
+
 }

@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public abstract class BaseNode : Node
+namespace DGG.DialogueSystem
 {
-    public abstract string GetGUID();
-
-    public PortCall inPort;
-    public BaseNode()
+    public abstract class BaseNode : Node
     {
-        inPort = PortCall.Create<Edge>(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(int));
-        //inPort = (PortCall)InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(int));
-        inPort.portName = "Input";
-        inputContainer.Add(inPort);
+        public abstract string GetGUID();
+
+        public PortCall inPort;
+        public BaseNode()
+        {
+            inPort = PortCall.Create<Edge>(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(int));
+            //inPort = (PortCall)InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(int));
+            inPort.portName = "Input";
+            inputContainer.Add(inPort);
+        }
     }
 }

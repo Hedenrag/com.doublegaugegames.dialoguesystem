@@ -2,23 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class RequireVariable
+namespace DGG.DialogueSystem
 {
-    [SerializeField] public Rect position;
-    [SerializeField] public List<DialogueInput> connectedDialogues;
-    [SerializeField] public string variableName;
-}
 
-[System.Serializable]
-public struct DialogueInput
-{
-    public string nodeGUID;
-    public int index;
 
-    public DialogueInput(string GUID, int index)
+    [System.Serializable]
+    public class RequireVariable
     {
-        nodeGUID = GUID;
-        this.index = index;
+        [SerializeField] public Rect position;
+        [SerializeField] public List<DialogueInput> connectedDialogues;
+        [SerializeField] public string variableName;
     }
+
+    [System.Serializable]
+    public struct DialogueInput
+    {
+        public string nodeGUID;
+        public int index;
+
+        public DialogueInput(string GUID, int index)
+        {
+            nodeGUID = GUID;
+            this.index = index;
+        }
+    }
+
 }

@@ -5,18 +5,23 @@ using UnityEditor.Callbacks;
 using UnityEditor;
 using UnityEngine;
 
-public class OpenDialogueFile
+namespace DGG.DialogueSystem
 {
-    [OnOpenAsset]
-    //Handles opening the editor window when double-clicking project files
-    public static bool OnOpenAsset(int instanceID, int line)
+
+    public class OpenDialogueFile
     {
-        DialogueHolder project = EditorUtility.InstanceIDToObject(instanceID) as DialogueHolder;
-        if (project != null)
+        [OnOpenAsset]
+        //Handles opening the editor window when double-clicking project files
+        public static bool OnOpenAsset(int instanceID, int line)
         {
-            DialogueEditorWindow.OpenProjectFile(project);
-            return true;
+            DialogueHolder project = EditorUtility.InstanceIDToObject(instanceID) as DialogueHolder;
+            if (project != null)
+            {
+                DialogueEditorWindow.OpenProjectFile(project);
+                return true;
+            }
+            return false;
         }
-        return false;
     }
+
 }

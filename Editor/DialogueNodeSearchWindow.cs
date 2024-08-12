@@ -5,27 +5,30 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class DialogueNodeSearchWindow : ScriptableObject, ISearchWindowProvider
+namespace DGG.DialogueSystem
 {
-    DialogueEditorWindow _window;
-    DialogueEditorGraph _graphView;
 
-    private Texture2D _indentationIcon;
-
-    public void Configure(DialogueEditorWindow window, DialogueEditorGraph graphView)
+    public class DialogueNodeSearchWindow : ScriptableObject, ISearchWindowProvider
     {
-        _window = window;
-        _graphView = graphView;
+        DialogueEditorWindow _window;
+        DialogueEditorGraph _graphView;
 
-        //Transparent 1px indentation icon as a hack
-        _indentationIcon = new Texture2D(1, 1);
-        _indentationIcon.SetPixel(0, 0, new Color(0, 0, 0, 0));
-        _indentationIcon.Apply();
-    }
+        private Texture2D _indentationIcon;
 
-    public List<SearchTreeEntry> CreateSearchTree(SearchWindowContext context)
-    {
-        var tree = new List<SearchTreeEntry>
+        public void Configure(DialogueEditorWindow window, DialogueEditorGraph graphView)
+        {
+            _window = window;
+            _graphView = graphView;
+
+            //Transparent 1px indentation icon as a hack
+            _indentationIcon = new Texture2D(1, 1);
+            _indentationIcon.SetPixel(0, 0, new Color(0, 0, 0, 0));
+            _indentationIcon.Apply();
+        }
+
+        public List<SearchTreeEntry> CreateSearchTree(SearchWindowContext context)
+        {
+            var tree = new List<SearchTreeEntry>
             {
                 new SearchTreeGroupEntry(new GUIContent("Create Node"), 0),
                 //new SearchTreeGroupEntry(new GUIContent("Dialogue"), 1),
@@ -51,28 +54,35 @@ public class DialogueNodeSearchWindow : ScriptableObject, ISearchWindowProvider
                 },
             };
 
-        return tree;
+            return tree;
+        }
+
+        public bool OnSelectEntry(SearchTreeEntry SearchTreeEntry, SearchWindowContext context)
+        {
+            //Editor window-based mouse position
+            var mousePosition = _window.rootVisualElement.ChangeCoordinatesTo(_window.rootVisualElement.parent,
+                context.screenMousePosition - _window.position.position);
+            var graphMousePosition = _graphView.contentViewContainer.WorldToLocal(mousePosition);
+            switch (SearchTreeEntry.userData)
+            {
+                case DialogueNode _:
+                    _graphView.AddDialogueNode(graphMousePosition);
+                    return true;
+                case SetVariableNode _:
+                    _graphView.AddVariableNode(graphMousePosition);
+                    return true;
+                case RequirementNode _:
+                    _graphView.AddRequirementNode(graphMousePosition);
+                    return true;
+                case EnterCharacterInSceneNode _:
+                    _graphView.AddCharacterEnterNode(graphMousePosition);
+                    return true;
+                case DialogueSwitch _:
+                    _graphView.AddSwitchNode(graphMousePosition);
+                    return true;
+            }
+            return false;
+        }
     }
 
-    public bool OnSelectEntry(SearchTreeEntry SearchTreeEntry, SearchWindowContext context)
-    {
-        //Editor window-based mouse position
-        var mousePosition = _window.rootVisualElement.ChangeCoordinatesTo(_window.rootVisualElement.parent,
-            context.screenMousePosition - _window.position.position);
-        var graphMousePosition = _graphView.contentViewContainer.WorldToLocal(mousePosition);
-        switch (SearchTreeEntry.userData)
-        {
-                case DialogueNode _: _graphView.AddDialogueNode(graphMousePosition);
-            return true;
-                case SetVariableNode _: _graphView.AddVariableNode(graphMousePosition);
-            return true;
-                case RequirementNode _: _graphView.AddRequirementNode(graphMousePosition);
-            return true;
-                case EnterCharacterInSceneNode _: _graphView.AddCharacterEnterNode(graphMousePosition);
-            return true;
-                case DialogueSwitch _: _graphView.AddSwitchNode(graphMousePosition);
-            return true;
-        }
-        return false;
-    }
 }
